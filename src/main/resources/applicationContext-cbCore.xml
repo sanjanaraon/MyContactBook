@@ -1,0 +1,57 @@
+<beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+         http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd"
+        >
+
+    <context:component-scan base-package="com.mycontactbook"/>
+
+    <context:annotation-config/>
+
+
+
+    <bean id="coreProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath*:contactBook.properties</value>
+            </list>
+        </property>
+
+        <property name="ignoreResourceNotFound" value="true"/>
+    </bean>
+
+
+    <bean id="contactBookDbPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties" ref="coreProperties" />
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+    </bean>
+
+    <mongo:mongo id="contactBookMongo" replica-set="${contactBook.mongo.hosts}">
+        <mongo:options
+                connections-per-host="${contactBook.mongo.connectionsPerHost}"
+                threads-allowed-to-block-for-connection-multiplier="${contactBook.mongo.threadsAllowedToBlockForConnectionMultiplier}"
+                connect-timeout="${contactBook.mongo.connectTimeout}"
+                max-wait-time="${contactBook.mongo.maxWaitTime}"
+                auto-connect-retry="${contactBook.mongo.autoConnectRetry}"
+                socket-keep-alive="${contactBook.mongo.socketKeepAlive}"
+                socket-timeout="${contactBook.mongo.socketTimeout}"
+                slave-ok="${contactBook.mongo.slaveOk}"
+                write-number="${contactBook.mongo.writeConcern}"
+                write-timeout="0"
+                write-fsync="true"/>
+    </mongo:mongo>
+
+    <mongo:db-factory id="contactBookMongoDbFactory" mongo-ref="contactBookMongo"
+                      dbname="${contactBook.mongo.db.name}"/>
+
+    <mongo:template id="contactBookMongoTemplate" db-factory-ref="contactBookMongoDbFactory"/>
+
+    <mongo:repositories base-package="com.mycontactbook"
+                        mongo-template-ref="contactBookMongoTemplate"/>
+
+
+</beans>
