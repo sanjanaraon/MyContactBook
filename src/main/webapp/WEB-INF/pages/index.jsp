@@ -1,7 +1,9 @@
-<html>
 <head><title>Contact Book</title></head>
-<body>
-<a href="/">welcome user</a><br><hr>
-<button value="Add Contact" {{action "openAddNewContactModal" model}}>Add Contact</button>
+<a href="/">welcome user</a><br>
+<hr>
+<a href="addNewContact">add contact</a>
+<h4>${message}</h4>
+<div id="contactDisplay">
+</div>
 </body>
 </html>

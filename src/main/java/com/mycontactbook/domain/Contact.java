@@ -14,7 +14,7 @@ import java.util.Map;
 import static com.googlecode.totallylazy.Pair.pair;
 
 @Document(collection = "db.contactBook.contacts")
-@JsonIgnoreProperties({"partialObject", "_id"})
+//@JsonIgnoreProperties({"partialObject", "_id"})
 public class Contact {
     @JsonProperty
     @Indexed
@@ -31,24 +31,31 @@ public class Contact {
     private String street2;
 
     @JsonProperty
+    private String city;
+
+    @JsonProperty
     @Id
     private String emailId;
 
     public Contact() {
     }
 
-    public Contact(String name, int mobileNumber, String street1, String emailId) {
+
+
+    public Contact(String name, int mobileNumber, String street1,String city, String emailId) {
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.street1 = street1;
+        this.city = city;
         this.emailId = emailId;
     }
 
-    public Contact(String name, int mobileNumber, String street1, String street2, String emailId) {
+    public Contact(String name, int mobileNumber, String street1, String street2,String city, String emailId) {
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.street1 = street1;
         this.street2 = street2;
+        this.city = city;
         this.emailId = emailId;
     }
 
@@ -60,6 +67,30 @@ public class Contact {
                 pair("street2", street2),
                 pair("emailId", emailId)
         );
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public String getStreet1() {
+        return street1;
+    }
+
+    public String getStreet2() {
+        return street2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getEmailId() {
+        return emailId;
     }
 
     @Override
