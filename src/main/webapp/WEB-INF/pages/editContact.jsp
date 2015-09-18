@@ -8,24 +8,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>New Contact</title>
+    <title>Edit Contact</title>
     <link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
 
 </head>
 <body>
-<form action="/add" method="post" name="Contact" id="detail-form">
+<form action="/update" name="Contact" id="myForm">
     <label>Enter your name:</label>
-    <input type="text" name="name" required><br>
+    <input type="text" name="name" value="${contact.name}" required><br>
     <label>Enter your mobile number:</label>
-    <input type="text" name="mobileNumber" required id="mobileNumber"><br>
+    <input type="text" name="mobileNumber" id="mobileNumber" required value=${contact.mobileNumber} ><br>
     <label>Enter your street1:</label>
-    <input type="text" name="street1" required><br>
+    <input type="text" name="street1" value="${contact.street1}" required><br>
     <label>Enter your street2:</label>
-    <input type="text" name="street2"><br>
+    <input type="text" name="street2" value="${contact.street2}"><br>
     <label>Enter your city:</label>
-    <input type="text" name="city" required><br>
+    <input type="text" name="city" value="${contact.city}" required><br>
     <label>Enter your emailid:</label>
-    <input type="text" name="emailId" required id="emailId"><br>
+    <input type="text" name="emailId" id="emailId" required value=${contact.emailId} ><br>
     <input type="submit" value="Submit">
     <input type="reset" value="Reset">
 </form>
@@ -38,7 +38,7 @@
 //        debug: true,
 //        success: "valid"
 //    });
-    $( "#detail-form" ).validate({
+    $( "#myform" ).validate({
         rules: {
             emailId: {
                 required: true,
@@ -52,9 +52,7 @@
             }
         }
     });
+//    $("#myform").validate();
 </script>
-<%--<script>--%>
-    <%--$("#detail-form").validate();--%>
-<%--</script>--%>
 </body>
 </html>

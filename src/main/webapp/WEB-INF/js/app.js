@@ -3,9 +3,15 @@
  */
 define(['ember'],
     function (Ember) {
-       var app=Ember.Application.create({
-
+       var App=Ember.Application.create({
+            LOG_TRANSITIONS:true
        });
-        return app;
+
+        App.Router.map(function(){
+
+        })
+
+
+        return App;
     }
 );
