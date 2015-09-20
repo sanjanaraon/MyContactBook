@@ -77,4 +77,13 @@ public class ContactOperations {
         Contact contact = getContact(emailId);
         mongoOperations.remove(contact);
     }
+
+    public List<Contact> searchContact(String searchContact) {
+            List<Contact> contacts;
+        contacts = mongoOperations.find(Query.query(Criteria.where("name").is(searchContact)), Contact.class);
+        if(contacts.isEmpty()){
+         contacts = mongoOperations.find(Query.query(Criteria.where("mobileNumber").is(searchContact)), Contact.class);
+      }
+        return contacts;
+    }
 }

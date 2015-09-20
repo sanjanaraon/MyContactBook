@@ -29,11 +29,6 @@ public class ContactsController {
         return "index";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "all")
-    public List<Contact> getAllContacts() {
-        return contactOperations.getAllContacts();
-    }
-
     @RequestMapping(method = RequestMethod.GET, value = "addNewContact")
     public String addNewContact() {
         return "addNewContact";
@@ -83,10 +78,27 @@ public class ContactsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "delete")
-    public String deleteContact(HttpServletRequest request) {
+    public String deleteContact(HttpServletRequest request,ModelMap modelMap) {
         String emailId=request.getParameter("emailId");
         contactOperations.deleteContact(emailId);
         return "index";
 //        homePage(new ModelMap("message","contact deleted"));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "getUserDetail")
+    public String getUserDetailForm(HttpServletRequest request,ModelMap modelMap){
+        String emailId = request.getParameter("emailId");
+        Contact contact = contactOperations.getContact(emailId);
+        modelMap.addAttribute("contact", contact);
+        return "userDetail";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "getContactByNameOrNumber")
+    public String getContactByNameOrNumber(HttpServletRequest request, ModelMap modelMap){
+        String searchContact = request.getParameter("searchContact");
+        List<Contact> contacts=contactOperations.searchContact(searchContact);
+        modelMap.addAttribute("contacts",contacts);
+        modelMap.addAttribute("message","search results");
+        return "searchResult";
     }
 }

@@ -1,7 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.List" %>
-<head><title>Contact Book</title></head>
-<a href="/">welcome user</a><br>
+<head><title>Contact Book</title>
+    <link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
+</head>
+<a href="/">Home</a>
+<a href="/getUserDetail?emailId=user@mail.com">Welcome </a><br><hr>
+<form action="/getContactByNameOrNumber">
+<input type="text" name="searchContact" placeholder="enter name or number to search" align="center" size="50">
+    <input type="submit" value="search">
+</form>
 <hr>
 <a href="addNewContact">add contact</a>
 <h4>${message}</h4>
@@ -14,8 +21,8 @@
             <td>street2:${contact.street2}</td>
             <td>city:${contact.city}</td>
             <td>email id:${contact.emailId}</td>
-            <td><a href="getContact?emailId=${contact.emailId}" > Edit</a></td>
-            <td><a href="delete?emailId=${contact.emailId}" >Delete</a></td>
+            <td><a href="getContact?emailId=${contact.emailId}"> Edit</a></td>
+            <td><a href="delete?emailId=${contact.emailId}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>

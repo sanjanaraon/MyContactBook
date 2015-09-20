@@ -109,7 +109,27 @@ public class ContactOperationsTest {
         assertEquals(1, contacts.size());
         verify(mongoOperationsMock).find(Query.query(Criteria.where("_id").is(emailId)), Contact.class);
         verify(mongoOperationsMock).remove(contact);
-        assertEquals(0,contacts.size());
+    }
+
+
+    @Test
+    public void shouldGetAConactByName() throws Exception {
+        Contact contact = new Contact("abcd", 1234567890, "#6901", "koramangala", "bangalore", "abcd1@mail.com");
+        contacts.add(contact);
+        when(mongoOperationsMock.find(Query.query(Criteria.where("name").is("abcd")), Contact.class)).thenReturn(contacts);
+        List<Contact> result = contactOperations.searchContact("abcd");
+        verify(mongoOperationsMock).find(Query.query(Criteria.where("name").is("abcd")), Contact.class);
+        assertEquals(contact, result.get(0));
+    }
+
+    @Test
+    public void shouldGetAConactByMobileNumber() throws Exception {
+        Contact contact = new Contact("abcd", 1234567890, "#6901", "koramangala", "bangalore", "abcd1@mail.com");
+        contacts.add(contact);
+        when(mongoOperationsMock.find(Query.query(Criteria.where("mobileNumber").is("1234567890")), Contact.class)).thenReturn(contacts);
+        List<Contact> result = contactOperations.searchContact("1234567890");
+        verify(mongoOperationsMock).find(Query.query(Criteria.where("mobileNumber").is("1234567890")), Contact.class);
+        assertEquals(contact,result.get(0));
     }
 
     @After
