@@ -34,7 +34,7 @@ public class ContactsController {
         return "addNewContact";
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/add")
+    @RequestMapping(method = RequestMethod.POST, value = "add")
     public String addContact(HttpServletRequest request, ModelMap modelMap) {
         String name = request.getParameter("name");
         int number = Integer.parseInt(request.getParameter("mobileNumber"));
@@ -45,10 +45,12 @@ public class ContactsController {
         Contact contact = new Contact(name, number, street1, street2, city, emailId);
         contactOperations.addContact(contact);
         modelMap.addAttribute("message", "Contact Added Successfully");
+        List<Contact> allContacts = contactOperations.getAllContacts();
+        modelMap.addAttribute("contacts", allContacts);
         return "index";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/update")
+    @RequestMapping(method = RequestMethod.PUT, value = "update")
     public String updateContact(HttpServletRequest request, ModelMap modelMap) {
 
         String name = request.getParameter("name");
@@ -64,6 +66,8 @@ public class ContactsController {
             System.out.printf("Failed to update");
         }
         modelMap.addAttribute("message", "contact updated successfully");
+        List<Contact> allContacts = contactOperations.getAllContacts();
+        modelMap.addAttribute("contacts", allContacts);
         return "index";
     }
 
@@ -77,12 +81,14 @@ public class ContactsController {
 
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "delete")
-    public String deleteContact(HttpServletRequest request,ModelMap modelMap) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "delete")
+    public String deleteContact(HttpServletRequest request, ModelMap modelMap) {
         String emailId=request.getParameter("emailId");
         contactOperations.deleteContact(emailId);
+        modelMap.addAttribute("message", "Contact Deleted");
+        List<Contact> allContacts = contactOperations.getAllContacts();
+        modelMap.addAttribute("contacts", allContacts);
         return "index";
-//        homePage(new ModelMap("message","contact deleted"));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getUserDetail")

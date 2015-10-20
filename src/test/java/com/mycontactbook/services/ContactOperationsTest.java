@@ -103,12 +103,13 @@ public class ContactOperationsTest {
 
         String emailId = "abcd1@mail.com";
         Contact contact = new Contact("abcd", 1234567890, "#6901", "koramangala", "bangalore", emailId);
-        contacts.add(contact);
+//        contacts.add(contact);
         when(mongoOperationsMock.find(Query.query(Criteria.where("_id").is(emailId)), Contact.class)).thenReturn(contacts);
         contactOperations.deleteContact(emailId);
         assertEquals(1, contacts.size());
         verify(mongoOperationsMock).find(Query.query(Criteria.where("_id").is(emailId)), Contact.class);
         verify(mongoOperationsMock).remove(contact);
+//        assertEquals(0,contacts.size());
     }
 
 

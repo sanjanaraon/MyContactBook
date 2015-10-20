@@ -13,7 +13,8 @@
 
 </head>
 <body>
-<form action="/update" name="Contact" id="myForm">
+<form action="/update" name="Contact" id="myForm" method="post">
+    <input type="hidden" name="_method" value="PUT" />
     <label>Enter your name:</label>
     <input type="text" name="name" value="${contact.name}" required><br>
     <label>Enter your mobile number:</label>
@@ -26,8 +27,7 @@
     <input type="text" name="city" value="${contact.city}" required><br>
     <label>Enter your emailid:</label>
     <input type="text" name="emailId" id="emailId" required value=${contact.emailId} ><br>
-    <input type="submit" value="Submit">
-    <input type="reset" value="Reset">
+    <input type="submit" value="Edit Contact">
 </form>
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>

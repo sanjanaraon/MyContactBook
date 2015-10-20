@@ -21,8 +21,8 @@
             <td>street2:${contact.street2}</td>
             <td>city:${contact.city}</td>
             <td>email id:${contact.emailId}</td>
-            <td><a href="getContact?emailId=${contact.emailId}"> Edit</a></td>
-            <td><a href="delete?emailId=${contact.emailId}">Delete</a></td>
+            <td><a href="getContact?emailId=${contact.emailId}"> <input type="submit" value="EDIT"></a></td>
+            <td><form action="delete?emailId=${contact.emailId}" method="post"><input type="hidden" name="_method" value="DELETE"><input type="submit" value="DELETE"></form></td>
         </tr>
     </c:forEach>
 </table>

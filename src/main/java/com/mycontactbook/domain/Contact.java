@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static com.googlecode.totallylazy.Pair.pair;
 
-@Document(collection = "db.contactBook.contacts")
+@Document(collection = "contacts")
 //@JsonIgnoreProperties({"partialObject", "_id"})
 public class Contact {
     @JsonProperty
