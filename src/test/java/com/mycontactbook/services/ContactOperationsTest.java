@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -16,10 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -40,7 +36,6 @@ public class ContactOperationsTest {
 
     List<Contact> contacts = new ArrayList<Contact>();
 
-    //TODO:write proper test after ur done with functionality of the app.
     @Test
     public void shouldReturnEmptyMapWhenThereAreNoContacts() throws Exception {
         when(mongoOperationsMock.findAll(Contact.class, "contacts")).thenReturn(contacts);
